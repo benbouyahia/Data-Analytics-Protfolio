@@ -71,3 +71,4 @@ The dataset spans orders placed between 2016 and 2018 across the full Brazilian 
 ---
 
 ### 2.3 Data Pipeline
+<img width="1433" height="458" alt="image" src="https://github.com/user-attachments/assets/06e06abf-2aee-4cb6-830e-af79ff935d39" />
