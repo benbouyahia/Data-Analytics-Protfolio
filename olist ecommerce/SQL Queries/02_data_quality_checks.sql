@@ -45,7 +45,7 @@ SELECT
     (SELECT COUNT(DISTINCT order_id) FROM staging.orders 
      WHERE order_id IN (SELECT DISTINCT order_id FROM staging.order_items)) AS orders_with_items_count;
 
--- 2.2 ORDER ITEMS DATASET QUALITY CHECKS
+-- ORDER ITEMS DATASET QUALITY CHECKS
 
 -- Check missing values in order_items
 SELECT 
@@ -89,7 +89,7 @@ SELECT
 FROM staging.order_items oi
 WHERE oi.seller_id NOT IN (SELECT seller_id FROM staging.sellers);
 
--- 2.3 CUSTOMERS DATASET QUALITY CHECKS
+-- CUSTOMERS DATASET QUALITY CHECKS
 
 -- Check missing values
 SELECT 
@@ -113,7 +113,7 @@ HAVING COUNT(DISTINCT customer_id) > 1
 ORDER BY customer_id_count DESC
 LIMIT 20;
 
--- 2.4 ORDER PAYMENTS DATASET QUALITY CHECKS
+-- ORDER PAYMENTS DATASET QUALITY CHECKS
 
 -- Check missing values in payments
 SELECT 
@@ -160,7 +160,7 @@ SELECT
 FROM staging.orders o
 WHERE o.order_id NOT IN (SELECT DISTINCT order_id FROM staging.order_payments);
 
--- 2.5 SELLERS DATASET QUALITY CHECKS
+-- SELLERS DATASET QUALITY CHECKS
 
 -- Check missing values
 SELECT 
@@ -184,7 +184,7 @@ SELECT
 FROM staging.sellers s
 WHERE s.seller_id NOT IN (SELECT seller_id FROM staging.order_items);
 
--- 2.6 ORDER REVIEWS DATASET QUALITY CHECKS
+-- ORDER REVIEWS DATASET QUALITY CHECKS
 
 -- Check missing values
 SELECT 
@@ -222,7 +222,7 @@ SELECT
 FROM analytics.order_reviews ar
 WHERE ar.order_id NOT IN (SELECT order_id FROM staging.orders);
 
--- 2.7 PRODUCTS DATASET QUALITY CHECKS
+-- PRODUCTS DATASET QUALITY CHECKS
 
 -- Check missing values
 SELECT 
