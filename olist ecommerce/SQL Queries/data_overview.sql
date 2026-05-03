@@ -39,9 +39,7 @@ SELECT
     MAX(DATE(order_purchase_timestamp))::TEXT
 FROM staging.orders;
 
--- ============================================================================
 -- 1.2 CUSTOMERS DATASET OVERVIEW
--- ============================================================================
 
 -- View first 10 customers
 SELECT 
@@ -74,9 +72,7 @@ SELECT
     COUNT(DISTINCT customer_city)
 FROM staging.customers;
 
--- ============================================================================
 -- 1.3 PRODUCTS DATASET OVERVIEW
--- ============================================================================
 
 -- View first 10 products
 SELECT 
@@ -104,9 +100,7 @@ SELECT
     COUNT(DISTINCT product_category_name)
 FROM analytics.dim_products;
 
--- ============================================================================
 -- 1.4 ORDER ITEMS DATASET OVERVIEW
--- ============================================================================
 
 -- View first 10 order items
 SELECT 
@@ -136,9 +130,7 @@ SELECT
     COUNT(DISTINCT seller_id)
 FROM analytics.fact_order_items;
 
--- ============================================================================
 -- 1.5 REVIEWS DATASET OVERVIEW
--- ============================================================================
 
 -- View first 10 reviews
 SELECT 
