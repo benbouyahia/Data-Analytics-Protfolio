@@ -1,10 +1,4 @@
-PART 4: KEY METRICS & AGGREGATIONS
-================================================================================
-*/
-
--- ============================================================================
--- 4.1 OVERALL BUSINESS METRICS
--- ============================================================================
+-- OVERALL BUSINESS METRICS
 
 -- Key Business Metrics Summary
 SELECT 
@@ -43,9 +37,7 @@ SELECT
     COUNT(DISTINCT product_category_name_english)::TEXT
 FROM analytics.dim_products;
 
--- ============================================================================
--- 4.2 SELLER PERFORMANCE METRICS
--- ============================================================================
+-- SELLER PERFORMANCE METRICS
 
 -- Top 10 Sellers by Revenue
 SELECT 
@@ -76,9 +68,7 @@ GROUP BY s.seller_id, s.seller_city, s.seller_state
 ORDER BY total_orders DESC
 LIMIT 10;
 
--- ============================================================================
--- 4.3 PAYMENT METHOD ANALYSIS
--- ============================================================================
+-- PAYMENT METHOD ANALYSIS
 
 -- Payment Type Distribution
 SELECT 
@@ -102,9 +92,7 @@ FROM staging.order_payments op
 GROUP BY op.payment_installments
 ORDER BY installments;
 
--- ============================================================================
--- 4.4 CUSTOMER METRICS
--- ============================================================================
+-- CUSTOMER METRICS
 
 -- Customer Order Frequency
 SELECT 
@@ -135,9 +123,7 @@ FROM (
 GROUP BY order_count
 ORDER BY order_count DESC;
 
--- ============================================================================
--- 4.5 PRODUCT PERFORMANCE METRICS
--- ============================================================================
+-- PRODUCT PERFORMANCE METRICS
 
 -- Product Category Performance Summary
 SELECT 
@@ -154,9 +140,7 @@ LEFT JOIN analytics.order_reviews ar ON oi.order_id = ar.order_id
 GROUP BY p.product_category_name_english
 ORDER BY product_revenue DESC;
 
--- ============================================================================
--- 4.6 ORDER STATUS DISTRIBUTION
--- ============================================================================
+-- ORDER STATUS DISTRIBUTION
 
 SELECT 
     o.order_status,
@@ -168,9 +152,7 @@ LEFT JOIN staging.order_items oi ON o.order_id = oi.order_id
 GROUP BY o.order_status
 ORDER BY order_count DESC;
 
--- ============================================================================
--- 4.7 SEASONALITY ANALYSIS
--- ============================================================================
+-- SEASONALITY ANALYSIS
 
 -- Revenue by Quarter
 SELECT 
