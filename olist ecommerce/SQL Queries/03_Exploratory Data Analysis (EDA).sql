@@ -1,10 +1,4 @@
-PART 3: EXPLORATORY DATA ANALYSIS (EDA) QUERIES
-================================================================================
-*/
-
--- ============================================================================
--- 3.1 PRODUCT PERFORMANCE ANALYSIS
--- ============================================================================
+-- PRODUCT PERFORMANCE ANALYSIS
 
 -- Top 10 Most Sold Product Categories
 SELECT 
@@ -54,9 +48,7 @@ GROUP BY p.product_category_name_english
 ORDER BY total_revenue ASC
 LIMIT 10;
 
--- ============================================================================
--- 3.2 REGIONAL PERFORMANCE ANALYSIS
--- ============================================================================
+-- REGIONAL PERFORMANCE ANALYSIS
 
 -- Customer Distribution by State
 SELECT 
@@ -93,9 +85,7 @@ GROUP BY c.customer_city, c.customer_state
 ORDER BY total_orders DESC
 LIMIT 10;
 
--- ============================================================================
--- 3.3 SALES OVERTIME ANALYSIS
--- ============================================================================
+-- SALES OVERTIME ANALYSIS
 
 -- Orders by Hour of Day
 SELECT 
@@ -147,9 +137,7 @@ GROUP BY EXTRACT(YEAR FROM o.order_purchase_timestamp),
          EXTRACT(MONTH FROM o.order_purchase_timestamp)
 ORDER BY year, month;
 
--- ============================================================================
--- 3.4 REVIEWS ANALYSIS
--- ============================================================================
+-- REVIEWS ANALYSIS
 
 -- Average Review Score by Product Category
 SELECT 
@@ -199,9 +187,7 @@ FROM analytics.order_reviews ar
 GROUP BY ar.review_score
 ORDER BY ar.review_score DESC;
 
--- ============================================================================
--- 3.5 DELIVERY ANALYSIS
--- ============================================================================
+-- DELIVERY ANALYSIS
 
 -- Delivery Performance: Estimated vs Actual
 SELECT 
