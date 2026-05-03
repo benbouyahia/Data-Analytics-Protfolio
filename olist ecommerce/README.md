@@ -71,6 +71,9 @@ The dataset spans orders placed between 2016 and 2018 across the full Brazilian 
 ---
 
 ### 2.3 Data Pipeline
+<img width="1433" height="458" alt="image" src="https://github.com/user-attachments/assets/d78f766c-149c-4f71-b039-abc25bb3b138" /> 
+
+### 3. Power BI Reports
 <img width="1276" height="712" alt="Screenshot 2026-05-02 013903" src="https://github.com/user-attachments/assets/4d64e107-c299-463b-92a9-1641aca916b8" />
 <img width="1277" height="718" alt="Screenshot 2026-05-02 013923" src="https://github.com/user-attachments/assets/1307a746-99a5-4c78-a8bb-9fedec87d3f4" />
 <img width="1277" height="715" alt="Screenshot 2026-05-02 014110" src="https://github.com/user-attachments/assets/1c318b1e-7c7e-4251-8e55-10ba2ae2181a" />
