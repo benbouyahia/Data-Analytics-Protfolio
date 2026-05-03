@@ -8,4 +8,4 @@ The dashboard translates 100,000+ real-world marketplace orders into actionable 
 \
 The project demonstrates proficiency across the full BI development lifecycle, including data modelling, DAX measure authoring, UX-driven report design, and interactive storytelling through bookmark-driven navigation and dynamic visuals.\
 \
-([Olist Brazilian E-commerce Project's Details](https://github.com/benbouyahia/Data-Analytics-Protfolio/tree/24443fc1ef21edbf663a23441bff9eeb6eec66cd/olist%20ecommerce))
+([Olist Brazilian E-commerce Project's Details](https://github.com/benbouyahia/Data-Analytics-Protfolio/tree/1e3d83793e8dca5e3a6579fdee1f0caace1f8c76/olist%20ecommerce))
