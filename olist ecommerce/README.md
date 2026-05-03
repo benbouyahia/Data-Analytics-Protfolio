@@ -117,9 +117,14 @@ The dashboard distinguishes between two types of KPIs:
 | **Order Status Distribution** | Where in the pipeline are orders getting stuck or cancelled? | Delivered is best |
 | **Top Late-Delivery Cities** | Which regions have the worst fulfilment quality? | Lower is better |
 
-### 3. Power BI Reports
+### 3. Power BI Report Pages 
+### 3.1 Executive Report Page 
 <img width="1276" height="712" alt="Screenshot 2026-05-02 013903" src="https://github.com/user-attachments/assets/4d64e107-c299-463b-92a9-1641aca916b8" />
+
+### 3.2 Sales Analysis 
 <img width="1277" height="718" alt="Screenshot 2026-05-02 013923" src="https://github.com/user-attachments/assets/1307a746-99a5-4c78-a8bb-9fedec87d3f4" />
+
+### 3.3 Customer Service Report Page 
 <img width="1277" height="715" alt="Screenshot 2026-05-02 014110" src="https://github.com/user-attachments/assets/1c318b1e-7c7e-4251-8e55-10ba2ae2181a" />
 
 
