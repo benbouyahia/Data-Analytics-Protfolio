@@ -73,6 +73,50 @@ The dataset spans orders placed between 2016 and 2018 across the full Brazilian 
 ### 2.3 Data Pipeline
 <img width="1433" height="458" alt="image" src="https://github.com/user-attachments/assets/d78f766c-149c-4f71-b039-abc25bb3b138" /> 
 
+## 3. KPIs (Key Performance Indicators)
+
+The dashboard distinguishes between two types of KPIs:
+
+- **Model KPIs:** DAX measures that power the calculations
+- **Business KPIs:** end-user indicators tied to strategic questions
+
+### 3.1 Model KPIs (DAX Measures)
+
+| **Measure name** | **Category** | **Description** |
+| --- | --- | --- |
+| **sales** | Core metric | SUM of order payment values in the selected filter context |
+| **orders** | Core metric | COUNT of distinct order IDs in the selected filter context |
+| **customers** | Core metric | COUNT of distinct customer IDs in the selected filter context |
+| **Sales MoM% Dynamic Text** | Time intelligence | Month-over-month % change in sales vs. the prior month; returns a formatted string for card display |
+| **Orders MoM% Dynamic Text** | Time intelligence | Month-over-month % change in orders vs. the prior month |
+| **Customers MoM% Dynamic Text** | Time intelligence | Month-over-month % change in customers vs. the prior month |
+| **Sales Variance Period MoM** | Time intelligence | Absolute difference in sales (R$) between the current and prior month |
+| **Orders Variance Period MoM** | Time intelligence | Absolute difference in order count between the current and prior month |
+| **Delivered Orders %** | Fulfilment | DIVIDE(orders with status = 'delivered', total orders), expressed as a percentage |
+| **On time delivery %** | Fulfilment | DIVIDE(delivered orders where actual delivery date ≤ estimated delivery date, total delivered orders) |
+| **Average Delivery Delay** | Fulfilment | AVERAGE of (actual delivery date − estimated delivery date) across all orders, in days |
+| **Average late Delivery Delay** | Fulfilment | AVERAGE of the same delay metric restricted to orders where actual > estimated delivery date |
+
+### 3.2 Business KPIs (Strategic Indicators)
+
+| **Business KPI** | **Answers** | **Trend direction** |
+| --- | --- | --- |
+| **Total Revenue (Sales)** | How much money did we make? | Higher is better |
+| **Total Orders** | How many orders did we receive? | Higher is better |
+| **Unique Customers** | How wide is our customer base? | Higher is better |
+| **Sales MoM Growth %** | Is revenue accelerating or decelerating? | Positive means growth |
+| **Orders MoM Growth %** | Is order volume growing or contracting? | Positive means growth |
+| **Top 5 / Bottom 5 Categories** | Where should we focus or cut? | Context-dependent |
+| **Top 5 / Bottom 5 Cities** | Which markets lead or lag? | Context-dependent |
+| **Payment Method Mix** | What payment options do customers prefer? | Stability indicates health |
+| **Orders and Customers Trend** | Are we acquiring new customers or relying on repeat buyers? | Upward is healthy |
+| **Delivered Orders %** | Are orders completing the fulfilment cycle? | Higher is better |
+| **On-Time Delivery Rate** | Are we meeting our delivery promises? | Higher is better |
+| **Avg Delivery Delay (days)** | How far off are we on average from the estimated date? | Lower is better |
+| **Avg Late Delivery Delay (days)** | When we're late, how late are we? | Lower is better |
+| **Order Status Distribution** | Where in the pipeline are orders getting stuck or cancelled? | Delivered is best |
+| **Top Late-Delivery Cities** | Which regions have the worst fulfilment quality? | Lower is better |
+
 ### 3. Power BI Reports
 <img width="1276" height="712" alt="Screenshot 2026-05-02 013903" src="https://github.com/user-attachments/assets/4d64e107-c299-463b-92a9-1641aca916b8" />
 <img width="1277" height="718" alt="Screenshot 2026-05-02 013923" src="https://github.com/user-attachments/assets/1307a746-99a5-4c78-a8bb-9fedec87d3f4" />
