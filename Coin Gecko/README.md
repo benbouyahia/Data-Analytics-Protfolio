@@ -6,11 +6,11 @@ A portfolio-grade ETL pipeline that extracts live cryptocurrency market data fro
 
 ## What it does
 
-| Step | Module | Output |
-|------|--------|--------|
-| 1. Extract | `_01_extract.py` | `data/raw_YYYY-MM-DD.jsonl` |
-| 2. Load | `_02_load_raw.py` | `raw.raw_crypto_data` (historical snapshots) |
-| 3. Transform | `_03_transform.py` | `staging.stg_crypto_snapshots` + latest view |
+| Step           | Module                 | Output                                         |
+| -------------- | ---------------------- | ---------------------------------------------- |
+| 1. Extract     | `_01_extract.py`     | `data/raw_YYYY-MM-DD.jsonl`                  |
+| 2. Load        | `_02_load_raw.py`    | `raw.raw_crypto_data` (historical snapshots) |
+| 3. Transform   | `_03_transform.py`   | `staging.stg_crypto_snapshots` + latest view |
 | 4. Build marts | `_04_build_marts.py` | `mart.dim_*`, `mart.fact_*`, Power BI view |
 
 ```mermaid
@@ -91,72 +91,69 @@ Full column reference for every layer (raw, staging, mart, JSONL): [`docs/data_d
 
 ### `staging` — cleaned snapshots
 
-| Object | Purpose |
-|--------|---------|
-| `stg_crypto_snapshots` | All valid historical snapshots |
-| `stg_crypto_data` (view) | Latest snapshot per coin only |
+| Object                     | Purpose                        |
+| -------------------------- | ------------------------------ |
+| `stg_crypto_snapshots`   | All valid historical snapshots |
+| `stg_crypto_data` (view) | Latest snapshot per coin only  |
 
 ### `mart` — star schema for BI
 
-| Table | Role |
-|-------|------|
-| `dim_coin` | Coin attributes (symbol, name, image) |
-| `dim_date` | Calendar (2020–2030) for time intelligence |
-| `fact_crypto_market_snapshot` | Measures + FKs to coin and date |
-| `v_market_dashboard` | **Denormalized view for Power BI** (recommended) |
+| Table                           | Role                                                   |
+| ------------------------------- | ------------------------------------------------------ |
+| `dim_coin`                    | Coin attributes (symbol, name, image)                  |
+| `dim_date`                    | Calendar (2020–2030) for time intelligence            |
+| `fact_crypto_market_snapshot` | Measures + FKs to coin and date                        |
+| `v_market_dashboard`          | **Denormalized view for Power BI** (recommended) |
 
 **Fact grain:** one row per coin per `extracted_at` (each pipeline run).
 
 **Fact measures:** `current_price`, `market_cap`, `total_volume`, `price_change_percentage_24h`, `volatility_24h_pct`, `volume_to_mcap_ratio`, `price_from_ath_pct`, and more.
 
-## Power BI setup
+## Power BI Setup
 
-### Option A — Single table (recommended to start)
+A single-page Power BI dashboard that gives a snapshot view of the cryptocurrency market, sourced from a CoinGecko-derived data warehouse. It tracks 258 coins across price, market cap, volume, volatility, and all-time-high/low metrics, refreshed at the latest available extraction timestamp.
 
-1. Open **Power BI Desktop** → **Get data** → **PostgreSQL database**.
-2. Server: `localhost` (port `5433` if not default — use **Advanced** options).
-3. Database: your DB name (e.g. `crypto_db`).
-4. Select view: **`mart.v_market_dashboard`**.
-5. Load.
+## Overview
 
-**Suggested visuals:**
+The report (`Coingecko.pbix`) is a single-page dashboard,  **Market Pulse** , that uses a bookmark-driven navigator to switch between four focused views without leaving the page:
 
-| Visual | Fields |
-|--------|--------|
-| Table | `symbol`, `current_price`, `market_cap_rank`, `price_change_percentage_24h` |
-| Bar chart | `symbol` (Top 10 by filter), `market_cap` |
-| Line chart | `extracted_at` or `snapshot_date`, `current_price` — filter `coin_id = bitcoin` |
-| Card | `COUNT(symbol)` filtered to latest `extracted_at` |
+| View                            | What it shows                                                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Market Pulse**(default) | Market cap by coin, 24h gainers/losers split, volume-to-market-cap ratio by coin, and a volatility-vs-distance-from-ATH scatter plot |
+| **Majors & Dominance**    | Same charts as Market Pulse, plus a KPI row for BTC/ETH dominance and 24h price moves                                                |
+| **Volume & Volatility**   | Same charts as Market Pulse, focused on the volume and volatility visuals                                                            |
+| **Table View**            | A detailed sortable table of all tracked coins, swapped in for the volume/volatility charts                                          |
 
-**Latest snapshot only:** Add a filter `extracted_at = MAX(extracted_at)` or use a measure.
+Two KPI card rows sit at the top of the page and are toggled in/out depending on the selected view:
 
-### Option B — Star schema (multiple tables)
+* **Row 1** (always visible): Coins Tracked, Total Market Cap, BTC Price, % Market Green, Coins Green 24h, Coins Red 24h
+* **Row 2** (Majors & Dominance only): Top 10 Concentration %, ETH Dominance %, ETH 24h %, BTC Dominance %, BTC 24h %
 
-Import these tables and relate in Model view:
+## Measures (DAX)
 
-- `mart.dim_coin` ← `mart.fact_crypto_market_snapshot` → `mart.dim_date`
-- Relationship: `dim_coin[coin_key]` → `fact[coin_key]`
-- Relationship: `dim_date[date_key]` → `fact[date_key]`
+All measures live in a dedicated `_Measures` table.
 
-Hide `coin_key` and `date_key` from report view; use `symbol` and `full_date` / `snapshot_date` instead.
+| Measure                                 | Purpose                                                                                                                                     |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Latest Extracted At`                 | Returns the max `extracted_at`across the whole fact table; used by nearly every other measure to pin calculations to the latest snapshot. |
+| `Is Latest Snapshot Filter`           | Flags whether the current row context matches the latest snapshot.                                                                          |
+| `Coins Tracked`                       | Distinct count of coins in the latest snapshot.                                                                                             |
+| `Total Market Cap`                    | Sum of market cap in the latest snapshot.                                                                                                   |
+| `Coins Green 24h`/`Coins Red 24h`   | Count of coins with positive / negative 24h price change in the latest snapshot.                                                            |
+| `% Market Green`                      | Share of (Green) / (Green + Red) coins.                                                                                                     |
+| `BTC Price`                           | BTC's `current_price `in the latest snapshot.                                                                                             |
+| `BTC 24h %`/`ETH 24h %`             | BTC / ETH's 24h price change %, formatted as a string with a `%`suffix.                                                                   |
+| `BTC Dominance %`/`ETH dominance %` | BTC's / ETH's share of total market cap, formatted as a string with a `%`suffix.                                                          |
+| `top 10 concentration %`              | Share of total market cap held by the top 10 coins by market cap rank.                                                                      |
+| `Median 24h Change %`                 | Median 24h price change % across all coins (defined but not currently placed on the report).                                                |
+| `Stablecoins`                         | A hardcoded list (USDT, USDC, DAI, BUSD, TUSD) via `DATATABLE`, defined but not currently used on the report.                             |
+| `Underperformingcoins`                | Returns coins trading at ≤50% of their all-time high (defined but not currently used on the report).                                       |
 
-### Refresh data
+## Report Page Snippet
 
-After each `python -m data.pipeline`, in Power BI: **Home** → **Refresh**.
+![1781736759955](image/README/1781736759955.png)
 
-## pgAdmin
-
-Browse schemas: `raw` → `staging` → `mart`. Run [`sql/analytics/sample_queries.sql`](sql/analytics/sample_queries.sql) for examples including Bitcoin price over time.
-
-## Design decisions
-
-| Choice | Why |
-|--------|-----|
-| Historical raw PK `(id, extracted_at)` | Enables trend analysis across pipeline runs |
-| Staging snapshots + latest view | Full history for facts; simple “current state” queries |
-| Mart star schema | Standard pattern for Power BI and portfolio demos |
-| `v_market_dashboard` | One import for quick dashboards; star schema optional |
-| SQL-heavy transforms | Reviewable in pgAdmin; separates ETL from BI tool |
+![1781736789549](image/README/1781736789549.png)
 
 ## API reference
 
