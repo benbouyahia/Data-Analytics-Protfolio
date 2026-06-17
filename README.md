@@ -17,3 +17,5 @@ The project demonstrates proficiency across the full BI development lifecycle, i
 Design and deliver an end-to-end interactive business intelligence solution built on live cryptocurrency market data from the CoinGecko API. The pipeline captures daily market snapshots, loads them into PostgreSQL, transforms them into clean staging and mart layers, and prepares a Power BI-ready dataset for interactive analysis.
 
 The solution translates thousands of real-world coin snapshots into actionable insights for traders, market analysts, and product stakeholders within a single BI workflow. The project demonstrates proficiency across the full BI development lifecycle, including data modelling, SQL-driven transformation, ETL orchestration, and report-ready dataset design.
+\
+([CoinGecko Crypto ETL Pipeline Details](https://github.com/benbouyahia/Data-Analytics-Protfolio/tree/26b5edce01cb295ea4a284870f9d12af54dfb16c/Coin%20Gecko))
