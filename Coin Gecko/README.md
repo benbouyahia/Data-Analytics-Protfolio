@@ -1,6 +1,6 @@
 # CoinGecko Crypto ETL Pipeline
 
-A portfolio-grade ETL pipeline that extracts live cryptocurrency market data from the [CoinGecko API](https://www.coingecko.com/en/api), loads it into **PostgreSQL**, and builds **staging** and **mart** layers (star schema) ready for **Power BI**.
+An ETL pipeline that extracts live cryptocurrency market data from the [CoinGecko API](https://www.coingecko.com/en/api), loads it into **PostgreSQL**, and builds **staging** and **mart** layers (star schema) ready for **Power BI**.
 
 **Stack:** Python · PostgreSQL · psycopg2 · CoinGecko API · SQL · Power BI
 
