@@ -1,36 +1,21 @@
 # CoinGecko Crypto ETL Pipeline
 
-An ETL pipeline that extracts live cryptocurrency market data from the [CoinGecko API](https://www.coingecko.com/en/api), loads it into **PostgreSQL**, and builds **staging** and **mart** layers (star schema) ready for **Power BI**.
+An end-to-end ETL pipeline that extracts live cryptocurrency market data from the CoinGecko API, loads it into **PostgreSQL**, and builds **staging** and **mart** layers (star schema) ready for **Power BI**.
 
-**Stack:** Python · PostgreSQL · psycopg2 · CoinGecko API · SQL · Power BI
+**Stack:** Python · PostgreSQL · psycopg2 · CoinGecko API · SQL · Power BI
 
-## What it does
+## **What it does**
 
-| Step           | Module                 | Output                                         |
-| -------------- | ---------------------- | ---------------------------------------------- |
-| 1. Extract     | `_01_extract.py`     | `data/raw_YYYY-MM-DD.jsonl`                  |
-| 2. Load        | `_02_load_raw.py`    | `raw.raw_crypto_data` (historical snapshots) |
-| 3. Transform   | `_03_transform.py`   | `staging.stg_crypto_snapshots` + latest view |
-| 4. Build marts | `_04_build_marts.py` | `mart.dim_*`, `mart.fact_*`, Power BI view |
+| Step | Module | Output |
+| --- | --- | --- |
+| 1. Extract | `_01_extract.py` | `data/raw_YYYY-MM-DD.jsonl` |
+| 2. Load | `_02_load_raw.py` | `raw.raw_crypto_data` (historical snapshots) |
+| 3. Transform | `_03_transform.py` | `staging.stg_crypto_snapshots` + view |
+| 4. Build marts | `_04_build_marts.py` | `mart.dim_*`, `mart.fact_crypto_market_snapshot` |
 
-```mermaid
-flowchart LR
-  API[CoinGecko_API] --> Extract["_01_extract"]
-  Extract --> JSONL[raw_JSONL]
-  JSONL --> LoadRaw["_02_load_raw"]
-  LoadRaw --> RawTable[raw.raw_crypto_data]
-  RawTable --> Transform["_03_transform"]
-  Transform --> StgTable[staging.stg_crypto_snapshots]
-  StgTable --> Marts["_04_build_marts"]
-  Marts --> Fact[mart.fact_crypto_market_snapshot]
-  Marts --> Dims[mart.dim_coin + dim_date]
-  Fact --> PBI[mart.v_market_dashboard]
-  Dims --> PBI
-```
+## **Project structure**
 
-## Project structure
-
-```
+```markdown
 Coin Gecko/
 ├── data/
 │   ├── config.py
@@ -41,46 +26,40 @@ Coin Gecko/
 │   ├── _03_transform.py
 │   └── _04_build_marts.py
 ├── sql/
-│   ├── ddl/
-│   ├── transform/
-│   ├── mart/
-│   └── analytics/
-├── requirements.txt
+│   ├── ddl/            # Schema + table definitions
+│   ├── transform/      # Staging SQL
+│   ├── mart/           # Fact & dimension population
+│   └── analytics/      # Sample queries
+├── docs/
+│   └── data_dictionary.md
+├── .env                # Database connection (copy from .env.example)
 ├── .env.example
+├── requirements.txt
 └── README.md
 ```
 
-## Prerequisites
+## **Setup**
 
-- Python 3.11+
-- PostgreSQL 15+ and pgAdmin 4
-- [Power BI Desktop](https://www.microsoft.com/power-platform/products/power-bi)
+### **1. Configure database**
 
-## Setup
+1. Create a PostgreSQL database (e.g., `crypto_db`)
+2. Copy `.env.example` to `.env` and set your connection string:
 
-### 1. PostgreSQL + pgAdmin
-
-1. Create a database (e.g. `crypto_db`) in pgAdmin.
-2. Copy `.env.example` to `.env` and set your connection string:
-
-```
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5433/crypto_db
+```python
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/crypto_db
 ```
 
-### 2. Install and run
+### **2. Install & run**
 
-```powershell
-cd "C:\Users\Ayoub-PC\Desktop\Coin Gecko"
-.venv\Scripts\activate
+```bash
+cd "Coin Gecko"
+python -m venv .venv
+.venv\Scripts\activate        
 pip install -r requirements.txt
 python -m data.pipeline
 ```
 
-Each pipeline run **appends a new snapshot** (same coin, new `extracted_at`). Re-run daily to build history for trend charts in Power BI.
-
-## Data dictionary
-
-Full column reference for every layer (raw, staging, mart, JSONL): [`docs/data_dictionary.md`](docs/data_dictionary.md).
+Each run **appends a new snapshot** per coin with a new `extracted_at` timestamp. Re-run daily to build historical data for trend analysis in Power BI.
 
 ## Data model
 
