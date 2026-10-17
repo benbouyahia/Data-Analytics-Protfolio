@@ -210,29 +210,6 @@ Key contributions include:
 - **Prioritization support:** Highlights unresolved and urgent feedback for further investigation.
 - **Continuous improvement:** Provides analytical views to investigate recurring issues and identify opportunities for service improvement.
 
-## Project Structure
-
-A suggested repository structure for the project:
-
-```text
-attijari-customer-feedback-bi/
-│
-├── README.md
-│
-├── images/
-│   ├── data-model.png
-│   ├── feedback-overview.png
-│   ├── customer-insights.png
-│   ├── feedback-prioritization.png
-│   ├── operational-efficiency.png
-│   └── continuous-improvement.png
-│
-└── powerbi/
-    └── customer-feedback-dashboard.pbix
-```
-
-*The structure above is a suggested organization. Include only the files that you actually add to the repository.*
-
 ---
 
 ## Author
