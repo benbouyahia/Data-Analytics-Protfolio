@@ -30,6 +30,8 @@ The project demonstrates skills in dimensional data modeling, DAX measure develo
 ![DAX](https://img.shields.io/badge/DAX-4472C4?style=flat-square)
 ![Business Intelligence](https://img.shields.io/badge/Business%20Intelligence-0A7B83?style=flat-square)
 
+[**Explore Project →**](https://github.com/benbouyahia/Data-Analytics-Protfolio/tree/1d0a0356b91d8490b1fa5fbb8c404ce008230698/Attijari%20Bank)
+
 ---
 
 ### 02 · Olist Brazilian E-Commerce Analysis
