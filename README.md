@@ -1,12 +1,38 @@
 # Data Analytics Portfolio
 
-Welcome to my Data Analytics Portfolio. This repository showcases projects focused on Business Intelligence, data analytics, data modeling, and ETL pipelines.
+Welcome to my Data Analytics Portfolio. This repository showcases projects focused on Business Intelligence, data analytics, data modeling, and ETL pipelines, combining technical skills with practical business problem-solving.
 
 ---
 
 ## Projects
 
-### 01 · Olist Brazilian E-Commerce Analysis
+### 01 · Customer Feedback BI Dashboard — Attijari Bank Tunisia
+
+**Business Intelligence · Power BI · DAX · SQL Server**
+
+An interactive Business Intelligence solution developed in the context of a project at Attijari Bank Tunisia, focused on monitoring customer feedback and complaint management.
+
+The dashboard consolidates key performance indicators across five report pages, enabling stakeholders to analyze complaint volumes, resolution performance, customer segments, feedback prioritization, and operational efficiency.
+
+The project demonstrates skills in dimensional data modeling, DAX measure development, KPI reporting, interactive dashboard design, and business-oriented data visualization.
+
+**Key Areas**
+- Feedback monitoring and resolution performance
+- Customer segment and service-category analysis
+- Complaint prioritization and backlog monitoring
+- Operational delays across agencies and processing units
+- Continuous improvement and service performance analysis
+
+**Tech Stack**
+
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)
+![DAX](https://img.shields.io/badge/DAX-4472C4?style=flat-square)
+![Business Intelligence](https://img.shields.io/badge/Business%20Intelligence-0A7B83?style=flat-square)
+
+---
+
+### 02 · Olist Brazilian E-Commerce Analysis
 
 **Business Intelligence · Power BI · DAX · Data Modeling**
 
@@ -24,11 +50,11 @@ The dashboard is designed for three distinct audiences and demonstrates the end-
 
 ---
 
-### 02 · CoinGecko Cryptocurrency ETL Pipeline
+### 03 · CoinGecko Cryptocurrency ETL Pipeline
 
 **Data Engineering · SQL · PostgreSQL · ETL**
 
-An end-to-end data pipeline built using live cryptocurrency market data from the CoinGecko API. The pipeline captures daily market snapshots, loads the data into PostgreSQL, transforms it into staging and mart layers, and prepares a Power BI-ready dataset for interactive analysis.
+An end-to-end data pipeline built using cryptocurrency market data from the CoinGecko API. The pipeline captures daily market snapshots, loads the data into PostgreSQL, transforms it into staging and mart layers, and prepares a Power BI-ready dataset for interactive analysis.
 
 The project demonstrates practical skills in API data extraction, SQL-driven transformations, ETL orchestration, data modeling, and analytical dataset preparation.
 
@@ -52,3 +78,4 @@ My projects combine business understanding with technical analytics skills to tu
 - Data modeling and SQL analytics
 - ETL pipelines and data transformation
 - KPI reporting and business performance analysis
+
